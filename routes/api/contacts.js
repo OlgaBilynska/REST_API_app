@@ -24,7 +24,13 @@ router.get("/", contactsControllers.getAll);
 
 router.get("/:contactId", isValidId, contactsControllers.getById);
 
-router.post("/", isEmptyBody, contactAddValidation, contactsControllers.add);
+router.post(
+  "/",
+
+  isEmptyBody,
+  contactAddValidation,
+  contactsControllers.add
+);
 
 router.put(
   "/:contactId",

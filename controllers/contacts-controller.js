@@ -1,6 +1,7 @@
 const { Contact } = require("../models/Contact.js");
 
 const HttpError = require("./../helpers/HttpError.js");
+// const cloudinary = require("../helpers/cloudinary");
 
 const ctrlWrapper = require("../decorators/ctrlWrapper.js");
 
@@ -35,6 +36,11 @@ const getById = async (req, res) => {
 
 const add = async (req, res) => {
   const { _id: owner } = req.user;
+  // const { url: avatarURL } = await cloudinary.uploader.upload(req.file.path, {
+  //   folder: "avatars",
+  // });
+  // await fs.unlink(req.file.path);
+
   const result = await Contact.create({ ...req.body, owner });
   res.status(201).json(result);
 };
