@@ -10,11 +10,13 @@ const {
   userSignupSchema,
   userSigninSchema,
   userUpdateSubscriptionSchema,
+  userEmailSchema,
 } = require("../../models/User");
 
 const userSignupValidate = validateBody(userSignupSchema);
 const userSigninValidate = validateBody(userSigninSchema);
 const userUpdateSubValidate = validateBody(userUpdateSubscriptionSchema);
+const userEmailValidate = validateBody(userEmailSchema);
 
 const upload = require("../../middlewares/upload.js");
 const resizeAvatar = require("../../middlewares/resizeAvatar.js");
@@ -28,6 +30,15 @@ authRouter.post(
   userSignupValidate,
   resizeAvatar,
   authController.signup
+);
+
+authRouter.get("/verify/:verificationToken", authController.verify);
+
+authRouter.post(
+  "/users/verify",
+  isEmptyBody,
+  userEmailValidate,
+  authController.resendVerifiedEmail
 );
 
 authRouter.post(
